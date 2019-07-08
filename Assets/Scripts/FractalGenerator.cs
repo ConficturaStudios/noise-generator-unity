@@ -110,6 +110,9 @@ public struct FractalGenerator
 
                     break;
                 case NoiseType.Test:
+                    int tile = (tiled) ? (int)f : -1;
+                    value = Worley.Generate(X * f, Y * f, seed, tile, tile).x;
+
                     if (inverted) total += amp * (1.0f - value);
                     else total += amp * value;
 
@@ -214,6 +217,9 @@ public struct FractalGenerator
 
                     break;
                 case NoiseType.Test:
+                    int tile = (tiled) ? (int)f : -1;
+                    value = Worley.Generate(X * f, Y * f, Z * f, seed, tile, tile, tile).x;
+
                     if (inverted) total += amp * (1.0f - value);
                     else total += amp * value;
 
