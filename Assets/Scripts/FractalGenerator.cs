@@ -90,29 +90,14 @@ public struct FractalGenerator
 
                     break;
                 case NoiseType.Cellular:
-                    if (tiled)
-                    {
-                        float W = 1;
-                        float H = 1;
-                        float wx = W - x;
-                        float hy = H - y;
-                        float fxy = noise.cellular(new float2(X, Y) * f).x * wx * hy;
-                        float fxwy = noise.cellular(new float2(X - W, Y) * f).x * X * hy;
-                        float fxwyh = noise.cellular(new float2(X - W, Y - H) * f).x * X * Y;
-                        float fxyh = noise.cellular(new float2(X, Y - H) * f).x * wx * Y;
-
-                        value = (fxy + fxwy + fxwyh + fxyh) / (W * H);
-                    }
-                    else value = noise.cellular(new float2(X, Y) * f).x;
+                    int tile = (tiled) ? (int)f : -1;
+                    value = Worley.Generate(X * f, Y * f, seed + o, tile, tile).x;
 
                     if (inverted) total += amp * (1.0f - value);
                     else total += amp * value;
 
                     break;
                 case NoiseType.Test:
-                    int tile = (tiled) ? (int)f : -1;
-                    value = Worley.Generate(X * f, Y * f, seed, tile, tile).x;
-
                     if (inverted) total += amp * (1.0f - value);
                     else total += amp * value;
 
@@ -190,36 +175,14 @@ public struct FractalGenerator
 
                     break;
                 case NoiseType.Cellular:
-                    if (tiled)
-                    {
-                        float W = 1;
-                        float H = 1;
-                        float D = 1;
-                        float wx = W - X;
-                        float hy = H - Y;
-                        float dz = D - Z;
-                        float fxyz = noise.cellular(new float3(X, Y, Z) * f).x * wx * hy * dz;
-                        float fxwyz = noise.cellular(new float3(X - W, Y, Z) * f).x * X * hy * dz;
-                        float fxwyhz = noise.cellular(new float3(X - W, Y - H, Z) * f).x * X * Y * dz;
-                        float fxyhz = noise.cellular(new float3(X, Y - H, Z) * f).x * wx * Y * dz;
-
-                        float fxyzd = noise.cellular(new float3(X, Y, Z - D) * f).x * wx * hy * Z;
-                        float fxwyzd = noise.cellular(new float3(X - W, Y, Z - D) * f).x * X * hy * Z;
-                        float fxwyhzd = noise.cellular(new float3(X - W, Y - H, Z - D) * f).x * X * Y * Z;
-                        float fxyhzd = noise.cellular(new float3(X, Y - H, Z - D) * f).x * wx * Y * Z;
-
-                        value = (fxyz + fxwyz + fxwyhz + fxyhz + fxyzd + fxwyzd + fxwyhzd + fxyhzd) / (W * H * D);
-                    }
-                    else value = noise.cellular(new float3(X, Y, Z) * f).x;
+                    int tile = (tiled) ? (int)f : -1;
+                    value = Worley.Generate(X * f, Y * f, Z * f, seed + o, tile, tile, tile).x;
 
                     if (inverted) total += amp * (1.0f - value);
                     else total += amp * value;
 
                     break;
                 case NoiseType.Test:
-                    int tile = (tiled) ? (int)f : -1;
-                    value = Worley.Generate(X * f, Y * f, Z * f, seed, tile, tile, tile).x;
-
                     if (inverted) total += amp * (1.0f - value);
                     else total += amp * value;
 

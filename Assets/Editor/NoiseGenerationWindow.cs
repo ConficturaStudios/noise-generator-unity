@@ -307,9 +307,16 @@ public class NoiseGenerationWindow : EditorWindow
         if (clear_flag) texture = null;
 
         EditorGUI.BeginDisabledGroup(!can_write || texture == null);
-        bool write_flag = GUILayout.Button("Write Texture To File");
+        
+        if (GUILayout.Button("Write Texture To File")) WriteTextureToFile();
+        if (GUILayout.Button("Write Texture To Asset"))
+        {
+            Texture2D asset = new Texture2D(texture.width, texture.height, TextureFormat.RGBAFloat, false);
+            Graphics.CopyTexture(texture, asset);
+            AssetDatabase.CreateAsset(asset, "Assets/" + file_name + ".asset");
+        }
+
         EditorGUI.EndDisabledGroup();
-        if (write_flag) WriteTextureToFile();
 
         if (texture != null)
         {
