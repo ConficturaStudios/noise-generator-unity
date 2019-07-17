@@ -70,7 +70,7 @@ public struct FractalGenerator
                 case NoiseType.Perlin:
                     if (tiled) value = (noise.pnoise(
                         new float2(X, Y) * f,
-                        new float2(1, 1) * (frequency + seed)
+                        new float2(1, 1) * (frequency)
                         ) + 1.0f) * 0.5f;
                     else value = (noise.cnoise(new float2(X, Y) * f) + 1.0f) * 0.5f;
 
@@ -81,7 +81,7 @@ public struct FractalGenerator
                 case NoiseType.Simplex:
                     if (tiled) value = (noise.psrnoise(
                         new float2(X, Y) * f,
-                        new float2(1, 1) * (frequency + seed)
+                        new float2(1, 1) * (frequency)
                         ) + 1.0f) * 0.5f;
                     else value = (noise.snoise(new float2(X, Y) * f) + 1.0f) * 0.5f;
 
@@ -139,7 +139,7 @@ public struct FractalGenerator
                 case NoiseType.Perlin:
                     if (tiled) value = (noise.pnoise(
                         new float3(X, Y, Z) * f,
-                        new float3(1, 1, 1) * (frequency + seed)
+                        new float3(1, 1, 1) * (frequency)
                         ) + 1.0f) * 0.5f;
                     else value = (noise.cnoise(new float3(X, Y, Z) * f) + 1.0f) * 0.5f;
 
