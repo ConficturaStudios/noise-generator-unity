@@ -207,6 +207,14 @@ public class NoiseGenerationWindow : EditorWindow
         int removed = 0;
         int delete_at = -1;
 
+        if (layers.Length == 0)
+        {
+            if (GUILayout.Button("Insert"))
+            {
+                insert_at = 0;
+            }
+        }
+
         for (int i = 0; i < layers.Length; i++)
         {
             EditorGUILayout.PropertyField(Window_SO.FindProperty("layers").GetArrayElementAtIndex(i), new GUIContent("Layer " + i.ToString() + ":"), true);
